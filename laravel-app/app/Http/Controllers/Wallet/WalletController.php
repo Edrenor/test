@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Wallet;
 
 use App\Domain\Auth\Models\User;
-use App\Domain\Transition\Commands\TransactionCommand;
+use App\Domain\Transaction\Commands\TransactionCommand;
 use App\Domain\Wallet\Commands\AddFundsToWalletCommand;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

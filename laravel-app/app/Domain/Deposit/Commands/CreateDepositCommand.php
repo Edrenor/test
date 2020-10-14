@@ -45,6 +45,7 @@ class CreateDepositCommand extends Command
         $deposit->active       = 1;
         $deposit->invested     = $this->deposit;
         $deposit->percent      = 0.2;
+        $deposit->profit       = 0;
         $deposit->duration     = 0;
         $deposit->accrue_times = 0;
         $deposit->save();

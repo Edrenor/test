@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Domain\Deposit\Models\Deposit;
-use App\Domain\Transition\Commands\TransactionCommand;
+use App\Domain\Transaction\Commands\TransactionCommand;
 use App\Domain\Wallet\Commands\AddFundsToWalletCommand;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -22,7 +22,6 @@ class AccrualFundsToDeposit extends Command
     public function handle()
     {
         while (true) {
-            sleep(60);
             $deposits = Deposit::where('active', 1)->get();
             /** @var Deposit $deposit */
             foreach ($deposits as $deposit) {
@@ -30,6 +29,7 @@ class AccrualFundsToDeposit extends Command
 
                 $this->dispatch(new AddFundsToWalletCommand($deposit->wallet->id, $profit));
                 $deposit->accrue_times += 1;
+                $deposit->profit += $profit;
                 $this->dispatch(new TransactionCommand($deposit->user->id,
                     $deposit->wallet->id,
                     $profit,
@@ -50,6 +50,8 @@ class AccrualFundsToDeposit extends Command
                 }
                 $deposit->save();
             }
+            sleep(60);
+
         }
     }
 }

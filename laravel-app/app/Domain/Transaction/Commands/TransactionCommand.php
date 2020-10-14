@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Transition\Commands;
+namespace App\Domain\Transaction\Commands;
 
 use App\Domain\Auth\Models\User;
 use App\Domain\Wallet\Models\Wallet;
 use App\Domain\Deposit\Models\Deposit;
-use App\Domain\Transition\Models\Transaction;
+use App\Domain\Transaction\Models\Transaction;
 use Illuminate\Console\Command;
 
 class TransactionCommand extends Command
@@ -40,14 +40,14 @@ class TransactionCommand extends Command
 
     public function handle()
     {
-        $transition = new Transaction();
-        $transition->wallet()->associate(Wallet::find($this->walletId));
-        $transition->user()->associate(User::find($this->userId));
+        $transaction = new Transaction();
+        $transaction->wallet()->associate(Wallet::find($this->walletId));
+        $transaction->user()->associate(User::find($this->userId));
         if ($this->depositId) {
-            $transition->deposit()->associate(Deposit::find($this->depositId));
+            $transaction->deposit()->associate(Deposit::find($this->depositId));
         }
-        $transition->type   = $this->type;
-        $transition->amount = $this->amount;
-        $transition->save();
+        $transaction->type   = $this->type;
+        $transaction->amount = $this->amount;
+        $transaction->save();
     }
 }
