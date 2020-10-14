@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domain\Transition\Commands;
+namespace App\Domain\Wallet\Commands;
 
 use App\Domain\Auth\Models\User;
+use App\Domain\Transition\Models\Transaction;
 use App\Domain\Wallet\Models\Wallet;
 use App\Domain\Deposit\Models\Deposit;
-use App\Domain\Transition\Models\Transaction;
 use Illuminate\Console\Command;
 
-class EnterTransitionCommand extends Command
+class CreateDepositTransitionCommand extends Command
 {
 
     /** @var int */
@@ -18,16 +18,16 @@ class EnterTransitionCommand extends Command
     private $walletId;
 
     /** @var int */
-    private $amount;
+    private $deposit;
 
-    /** @var int|null */
+    /** @var int */
     private $depositId;
 
-    public function __construct(int $userId, int $walletId, int $amount, int $depositId = null)
+    public function __construct(int $userId, int $walletId, int $deposit, int $depositId)
     {
         $this->userId    = $userId;
         $this->walletId  = $walletId;
-        $this->amount    = $amount;
+        $this->deposit   = $deposit;
         $this->depositId = $depositId;
     }
 
@@ -36,11 +36,9 @@ class EnterTransitionCommand extends Command
         $transition = new Transaction();
         $transition->wallet()->associate(Wallet::find($this->walletId));
         $transition->user()->associate(User::find($this->userId));
-        if ($this->depositId) {
-            $transition->deposit()->associate(Deposit::find($this->depositId));
-        }
-        $transition->type   = 'enter';
-        $transition->amount = $this->amount;
+        $transition->deposit()->associate(Deposit::find($this->depositId));
+        $transition->type   = 'create_deposit';
+        $transition->amount = $this->deposit;
         $transition->save();
     }
 }

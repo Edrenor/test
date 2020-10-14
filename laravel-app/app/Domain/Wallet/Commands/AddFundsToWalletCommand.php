@@ -2,11 +2,10 @@
 
 namespace App\Domain\Wallet\Commands;
 
-use App\Domain\Auth\Models\User;
 use App\Domain\Wallet\Models\Wallet;
 use Illuminate\Console\Command;
 
-class AddFundsToWallet extends Command
+class AddFundsToWalletCommand extends Command
 {
 
     /** @var int */

@@ -11,12 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',
+    function () {
+        return view('welcome');
+    }
+);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/funds/add', 'Wallet\WalletController@addFunds')->name('funds_add');
+
+Route::post('/deposit/create', 'Deposit\DepositController@createDeposit')->name('create_deposit');

@@ -13,8 +13,17 @@
                     <div class="card-body">
                         <form action="{{url('/funds/add')}}" method="post">
                             {{ csrf_field() }}
-                            <label for="funds">Сумма (от 10 до 100):</label>
-                            <input type="number" id="funds" name="funds" min="10" max="100"><br><br>
+                            <label for="funds">Сумма для зачисления на счет:</label>
+                            <input type="number" id="funds" name="funds"><br><br>
+                            <input type="submit">
+                        </form>
+                    </div>
+
+                    <div class="card-body">
+                        <form action="{{url('/deposit/create')}}" method="post">
+                            {{ csrf_field() }}
+                            <label for="deposit">Сумма для вклада по депозиту (от 10 до 100):</label>
+                            <input type="number" id="deposit" name="deposit" min="10" max="100"><br><br>
                             <input type="submit">
                         </form>
                     </div>
