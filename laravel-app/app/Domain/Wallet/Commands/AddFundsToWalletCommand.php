@@ -14,7 +14,7 @@ class AddFundsToWalletCommand extends Command
     /** @var int */
     private $funds;
 
-    public function __construct(int $walletId, int $funds)
+    public function __construct(int $walletId, float $funds)
     {
         $this->walletId = $walletId;
         $this->funds    = $funds;

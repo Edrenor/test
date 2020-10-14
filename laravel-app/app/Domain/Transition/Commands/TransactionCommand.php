@@ -8,8 +8,10 @@ use App\Domain\Deposit\Models\Deposit;
 use App\Domain\Transition\Models\Transaction;
 use Illuminate\Console\Command;
 
-class EnterTransitionCommand extends Command
+class TransactionCommand extends Command
 {
+
+    protected $signature = 'transaction';
 
     /** @var int */
     private $userId;
@@ -20,14 +22,19 @@ class EnterTransitionCommand extends Command
     /** @var int */
     private $amount;
 
+    /** @var string */
+    private $type;
+
     /** @var int|null */
     private $depositId;
 
-    public function __construct(int $userId, int $walletId, int $amount, int $depositId = null)
+    public function __construct(int $userId, int $walletId, int $amount, string $type, int $depositId = null)
     {
+        parent::__construct();
         $this->userId    = $userId;
         $this->walletId  = $walletId;
         $this->amount    = $amount;
+        $this->type      = $type;
         $this->depositId = $depositId;
     }
 
@@ -39,7 +46,7 @@ class EnterTransitionCommand extends Command
         if ($this->depositId) {
             $transition->deposit()->associate(Deposit::find($this->depositId));
         }
-        $transition->type   = 'enter';
+        $transition->type   = $this->type;
         $transition->amount = $this->amount;
         $transition->save();
     }

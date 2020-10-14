@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Deposit;
 
 use App\Domain\Auth\Models\User;
 use App\Domain\Deposit\Commands\CreateDepositCommand;
-use App\Domain\Transition\Commands\EnterTransitionCommand;
-use App\Domain\Wallet\Commands\AddFundsToWalletCommand;
-use App\Domain\Wallet\Commands\CreateDepositTransitionCommand;
+use App\Domain\Transition\Commands\TransactionCommand;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +20,7 @@ class DepositController extends Controller
         $userId    = Auth::user()->getAuthIdentifier();
         $walletId  = User::find($userId)->wallet->id;
         $depositId = $this->dispatch(new CreateDepositCommand($walletId, $deposit));
-        $this->dispatch(new CreateDepositTransitionCommand($userId, $walletId, $deposit, $depositId));
+        $this->dispatch(new TransactionCommand($userId, $walletId, $deposit, 'create_deposit', $depositId));
 
         return redirect()->route('home');
     }
