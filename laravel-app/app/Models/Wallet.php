@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wallet extends Model
 {
+    public $table = 'wallets';
+
+    protected $fillable = [
+        'balance',
+    ];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Domain\Auth\Models\User');
     }
 
     public function deposits()
