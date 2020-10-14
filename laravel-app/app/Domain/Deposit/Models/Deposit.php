@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Deposit extends Model
 {
-    public $table = 'transactions';
+    public $table = 'deposits';
 
     public function user()
     {
@@ -15,12 +15,7 @@ class Transaction extends Model
 
     public function wallet()
     {
-        return $this->belongsTo('App\Models\Wallet');
-    }
-
-    public function deposit()
-    {
-        return $this->belongsTo('App\Models\Deposit');
+        return $this->belongsTo('App\Domain\Wallet\Models\Wallet');
     }
 
 }

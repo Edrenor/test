@@ -31,16 +31,16 @@ class User extends Authenticatable
 
     public function wallet()
     {
-        return $this->hasOne('App\Models\Wallet');
+        return $this->hasOne('App\Domain\Wallet\Models\Wallet');
     }
 
     public function deposits()
     {
-        return $this->hasMany('App\Models\Deposit');
+        return $this->hasMany('App\Domain\Deposit\Models\Deposit');
     }
 
     public function transactions()
     {
-        return $this->hasMany('App\Models\Transaction');
+        return $this->hasMany('App\Domain\Transaction\Models\Transaction');
     }
 }

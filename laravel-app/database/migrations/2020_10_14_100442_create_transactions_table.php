@@ -20,7 +20,7 @@ class CreateTransactionsTable extends Migration
                 $table->string('type', 30);
                 $table->unsignedInteger('user_id');
                 $table->unsignedInteger('wallet_id');
-                $table->unsignedInteger('deposit_id');
+                $table->unsignedInteger('deposit_id')->nullable();
                 $table->double('amount', 10, 2);
 
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

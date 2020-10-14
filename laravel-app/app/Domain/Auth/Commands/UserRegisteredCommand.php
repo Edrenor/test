@@ -3,7 +3,7 @@
 namespace App\Domain\Auth\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\Wallet;
+use App\Domain\Wallet\Models\Wallet;
 use App\Domain\Auth\Models\User;
 
 class UserRegisteredCommand extends Command
